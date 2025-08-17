@@ -80,9 +80,15 @@ app.post("/process-payment", async (req, res) => {
 });
 
 // Optional: Test endpoint
-app.post("/test", (req, res) => {
-  res.json({ status: "OK", message: "Backend working with CORS!" });
+// Test endpoint (GET + POST dono)
+app.get("/test", (req, res) => {
+  res.json({ status: "OK", message: "Backend GET working!" });
 });
+
+app.post("/test", (req, res) => {
+  res.json({ status: "OK", message: "Backend POST working!" });
+});
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
