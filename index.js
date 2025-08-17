@@ -2,15 +2,26 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const fetch = require("node-fetch"); // Node-fetch v2
+const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
+
+// ---- CORS Fix ----
+// Allow only your frontend domain
+app.use(cors({
+  origin: "https://vinclarify.info",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Root route (optional)
+// Root route
 app.get("/", (req, res) => {
-  res.send("✅ Backend is running!");
+  res.send("✅ Backend is running with CORS enabled!");
 });
 
 // Payment route
@@ -68,9 +79,9 @@ app.post("/process-payment", async (req, res) => {
   }
 });
 
-// Optional: Test endpoint for backend check
+// Optional: Test endpoint
 app.post("/test", (req, res) => {
-  res.json({ status: "OK", message: "Backend working!" });
+  res.json({ status: "OK", message: "Backend working with CORS!" });
 });
 
 // Start server
